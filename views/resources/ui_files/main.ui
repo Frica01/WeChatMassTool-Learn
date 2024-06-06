@@ -67,20 +67,20 @@ Bg App */
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////
 Left Menu */
-#leftMenuBg {	
+#frame_menu_left_box {	
 	background-color: rgb(33, 37, 43);
 }
-#topLogo {
+#frame_logo {
 	background-color: rgb(33, 37, 43);
 	background-image: url(:/images/images/WeChatMass.png);
 	background-position: centered;
 	background-repeat: no-repeat;
 }
-#titleLeftApp { font: 63 12pt &quot;Segoe UI Semibold&quot;; }
-#titleLeftDescription { font: 8pt &quot;Segoe UI&quot;; color: rgb(189, 147, 249); }
+#label_subtitle { font: 63 12pt &quot;Segoe UI Semibold&quot;; }
+#label_subtitle_description { font: 8pt &quot;Segoe UI&quot;; color: rgb(189, 147, 249); }
 
 /* MENUS */
-#topMenu .QPushButton {	
+#frame_menu .QPushButton {	
 	background-position: left center;
     background-repeat: no-repeat;
 	border: none;
@@ -89,14 +89,14 @@ Left Menu */
 	text-align: left;
 	padding-left: 44px;
 }
-#topMenu .QPushButton:hover {
+#frame_menu .QPushButton:hover {
 	background-color: rgb(40, 44, 52);
 }
-#topMenu .QPushButton:pressed {	
+#frame_menu .QPushButton:pressed {	
 	background-color: rgb(189, 147, 249);
 	color: rgb(255, 255, 255);
 }
-#bottomMenu .QPushButton {	
+#frame_left_bottom .QPushButton {	
 	background-position: left center;
     background-repeat: no-repeat;
 	border: none;
@@ -105,19 +105,19 @@ Left Menu */
 	text-align: left;
 	padding-left: 44px;
 }
-#bottomMenu .QPushButton:hover {
+#frame_left_bottom .QPushButton:hover {
 	background-color: rgb(40, 44, 52);
 }
-#bottomMenu .QPushButton:pressed {	
+#frame_left_bottom .QPushButton:pressed {	
 	background-color: rgb(189, 147, 249);
 	color: rgb(255, 255, 255);
 }
-#leftMenuFrame{
+#frame_left_sub_box{
 	border-top: 3px solid rgb(44, 49, 58);
 }
 
 /* Toggle Button */
-#toggleButton {
+#btn_menu_toggle {
 	background-position: left center;
     background-repeat: no-repeat;
 	border: none;
@@ -127,48 +127,48 @@ Left Menu */
 	padding-left: 44px;
 	color: rgb(113, 126, 149);
 }
-#toggleButton:hover {
+#btn_menu_toggle:hover {
 	background-color: rgb(40, 44, 52);
 }
-#toggleButton:pressed {
+#btn_menu_toggle:pressed {
 	background-color: rgb(189, 147, 249);
 }
 
 /* Title Menu */
-#titleRightInfo { padding-left: 10px; }
+#label_title { padding-left: 10px; }
 
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////
 Extra Tab */
-#extraLeftBox {	
+#frame_left_settings_box {	
 	background-color: rgb(44, 49, 58);
 }
-#extraTopBg{	
+#frame_left_settings_title_box{	
 	background-color: rgb(189, 147, 249)
 }
 
 /* Icon */
-#extraIcon {
+#frame_left_settings_icon {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-image: url(:/icons/icons/icon_settings.png);
 }
 
 /* Label */
-#extraLabel { color: rgb(255, 255, 255); }
+#label_left_settings { color: rgb(255, 255, 255); }
 
 /* Btn Close */
-#extraCloseColumnBtn { background-color: rgba(255, 255, 255, 0); border: none;  border-radius: 5px; }
-#extraCloseColumnBtn:hover { background-color: rgb(196, 161, 249); border-style: solid; border-radius: 4px; }
-#extraCloseColumnBtn:pressed { background-color: rgb(180, 141, 238); border-style: solid; border-radius: 4px; }
+#btn_close_left_settings { background-color: rgba(255, 255, 255, 0); border: none;  border-radius: 5px; }
+#btn_close_left_settings:hover { background-color: rgb(196, 161, 249); border-style: solid; border-radius: 4px; }
+#btn_close_left_settings:pressed { background-color: rgb(180, 141, 238); border-style: solid; border-radius: 4px; }
 
 /* Extra Content */
-#extraContent{
+#frame_left_settings_content{
 	border-top: 3px solid rgb(40, 44, 52);
 }
 
 /* Extra Top Menus */
-#extraTopMenu .QPushButton {
+#frame_left_settings_top_box .QPushButton {
 background-position: left center;
     background-repeat: no-repeat;
 	border: none;
@@ -177,39 +177,39 @@ background-position: left center;
 	text-align: left;
 	/*padding-left: 44px;*/
 }
-#extraTopMenu .QPushButton:hover {
+#frame_left_settings_top_box .QPushButton:hover {
 	background-color: rgb(40, 44, 52);
 }
-#extraTopMenu .QPushButton:pressed {	
+#frame_left_settings_top_box .QPushButton:pressed {	
 	background-color: rgb(189, 147, 249);
 	color: rgb(255, 255, 255);
 }
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////
 Content App */
-#contentTopBg{	
+#frame_content_top_box{	
 	background-color: rgb(33, 37, 43);
 }
-#contentBottom{
+#frame_sub_content_box{
 	border-top: 3px solid rgb(44, 49, 58);
 }
 
 /* Top Buttons */
-#rightButtons .QPushButton { background-color: rgba(255, 255, 255, 0); border: none;  border-radius: 5px; }
-#rightButtons .QPushButton:hover { background-color: rgb(44, 49, 57); border-style: solid; border-radius: 4px; }
-#rightButtons .QPushButton:pressed { background-color: rgb(23, 26, 30); border-style: solid; border-radius: 4px; }
+#frame_buttons_top_right .QPushButton { background-color: rgba(255, 255, 255, 0); border: none;  border-radius: 5px; }
+#frame_buttons_top_right .QPushButton:hover { background-color: rgb(44, 49, 57); border-style: solid; border-radius: 4px; }
+#frame_buttons_top_right .QPushButton:pressed { background-color: rgb(23, 26, 30); border-style: solid; border-radius: 4px; }
 
 /* Theme Settings */
-#extraRightBox { background-color: rgb(44, 49, 58); }
+#frame_right_settings_box { background-color: rgb(44, 49, 58); }
 #themeSettingsTopDetail { background-color: rgb(189, 147, 249); }
 
 /* Bottom Bar */
-#bottomBar { background-color: rgb(44, 49, 58); }
-#bottomBar QLabel { font-size: 11px; color: rgb(113, 126, 149); padding-left: 10px; padding-right: 10px; padding-bottom: 2px; }
+#frame_bottom_bar { background-color: rgb(44, 49, 58); }
+#frame_bottom_bar QLabel { font-size: 11px; color: rgb(113, 126, 149); padding-left: 10px; padding-right: 10px; padding-bottom: 2px; }
 
 /* CONTENT SETTINGS */
 /* MENUS */
-#contentSettings .QPushButton {	
+#frame_right_settings_content .QPushButton {	
 	background-position: left center;
     background-repeat: no-repeat;
 	border: none;
@@ -218,10 +218,10 @@ Content App */
 	text-align: left;
 	padding-left: 44px;
 }
-#contentSettings .QPushButton:hover {
+#frame_right_settings_content .QPushButton:hover {
 	background-color: rgb(40, 44, 52);
 }
-#contentSettings .QPushButton:pressed {	
+#frame_right_settings_content .QPushButton:pressed {	
 	background-color: rgb(189, 147, 249);
 	color: rgb(255, 255, 255);
 }
@@ -462,22 +462,22 @@ QSlider::handle:vertical:pressed {
 
 /* /////////////////////////////////////////////////////////////////////////////////////////////////
 Button */
-#pagesContainer QPushButton {
+#frame_pages_container QPushButton {
 	border: 2px solid rgb(52, 59, 72);
 	border-radius: 5px;	
 	background-color: rgb(52, 59, 72);
 }
-#pagesContainer QPushButton:hover {
+#frame_pages_container QPushButton:hover {
 	background-color: rgb(57, 65, 80);
 	border: 2px solid rgb(61, 70, 86);
 }
-#pagesContainer QPushButton:pressed {	
+#frame_pages_container QPushButton:pressed {	
 	background-color: rgb(35, 40, 49);
 	border: 2px solid rgb(43, 50, 61);
 }
 </string>
    </property>
-   <layout class="QVBoxLayout" name="appMargins">
+   <layout class="QVBoxLayout" name="app_margins">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -521,7 +521,7 @@ Button */
         <number>0</number>
        </property>
        <item>
-        <widget class="QFrame" name="leftMenuBg">
+        <widget class="QFrame" name="frame_menu_left_box">
          <property name="minimumSize">
           <size>
            <width>60</width>
@@ -557,7 +557,7 @@ Button */
            <number>0</number>
           </property>
           <item>
-           <widget class="QFrame" name="topLogoInfo">
+           <widget class="QFrame" name="frame_title_box">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -576,7 +576,7 @@ Button */
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
-            <widget class="QFrame" name="topLogo">
+            <widget class="QFrame" name="frame_logo">
              <property name="geometry">
               <rect>
                <x>10</x>
@@ -604,7 +604,7 @@ Button */
               <enum>QFrame::Raised</enum>
              </property>
             </widget>
-            <widget class="QLabel" name="titleLeftApp">
+            <widget class="QLabel" name="label_subtitle">
              <property name="geometry">
               <rect>
                <x>70</x>
@@ -626,7 +626,7 @@ Button */
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
              </property>
             </widget>
-            <widget class="QLabel" name="titleLeftDescription">
+            <widget class="QLabel" name="label_subtitle_description">
              <property name="geometry">
               <rect>
                <x>70</x>
@@ -662,7 +662,7 @@ Button */
            </widget>
           </item>
           <item>
-           <widget class="QFrame" name="leftMenuFrame">
+           <widget class="QFrame" name="frame_left_sub_box">
             <property name="styleSheet">
              <string notr="true">font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
             </property>
@@ -689,7 +689,7 @@ Button */
               <number>0</number>
              </property>
              <item>
-              <widget class="QFrame" name="toggleBox">
+              <widget class="QFrame" name="frame_menu_toggle">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -719,7 +719,7 @@ Button */
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="toggleButton">
+                 <widget class="QPushButton" name="btn_menu_toggle">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -758,7 +758,7 @@ Button */
               </widget>
              </item>
              <item alignment="Qt::AlignTop">
-              <widget class="QFrame" name="topMenu">
+              <widget class="QFrame" name="frame_menu">
                <property name="styleSheet">
                 <string notr="true"/>
                </property>
@@ -887,7 +887,7 @@ Button */
               </widget>
              </item>
              <item alignment="Qt::AlignBottom">
-              <widget class="QFrame" name="bottomMenu">
+              <widget class="QFrame" name="frame_left_bottom">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
@@ -911,7 +911,7 @@ Button */
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="toggleTheme">
+                 <widget class="QPushButton" name="btn_toggle_theme">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -942,7 +942,7 @@ Button */
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="toggleLeftBox">
+                 <widget class="QPushButton" name="btn_left_settings">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -987,7 +987,7 @@ Button */
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="extraLeftBox">
+        <widget class="QFrame" name="frame_left_settings_box">
          <property name="minimumSize">
           <size>
            <width>0</width>
@@ -1023,7 +1023,7 @@ Button */
            <number>0</number>
           </property>
           <item>
-           <widget class="QFrame" name="extraTopBg">
+           <widget class="QFrame" name="frame_left_settings_title_box">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -1059,7 +1059,7 @@ Button */
               <number>0</number>
              </property>
              <item>
-              <layout class="QGridLayout" name="extraTopLayout">
+              <layout class="QGridLayout" name="layout_left_settings_subtitle">
                <property name="leftMargin">
                 <number>10</number>
                </property>
@@ -1073,7 +1073,7 @@ Button */
                 <number>0</number>
                </property>
                <item row="0" column="0">
-                <widget class="QFrame" name="extraIcon">
+                <widget class="QFrame" name="frame_left_settings_icon">
                  <property name="minimumSize">
                   <size>
                    <width>20</width>
@@ -1095,7 +1095,7 @@ Button */
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QLabel" name="extraLabel">
+                <widget class="QLabel" name="label_left_settings">
                  <property name="minimumSize">
                   <size>
                    <width>150</width>
@@ -1108,7 +1108,7 @@ Button */
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="QPushButton" name="extraCloseColumnBtn">
+                <widget class="QPushButton" name="btn_close_left_settings">
                  <property name="minimumSize">
                   <size>
                    <width>28</width>
@@ -1148,7 +1148,7 @@ Button */
            </widget>
           </item>
           <item>
-           <widget class="QFrame" name="extraContent">
+           <widget class="QFrame" name="frame_left_settings_content">
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -1172,7 +1172,7 @@ Button */
               <number>0</number>
              </property>
              <item>
-              <widget class="QFrame" name="extraTopMenu">
+              <widget class="QFrame" name="frame_left_settings_top_box">
                <property name="styleSheet">
                 <string notr="true">font: 450 11pt&quot;Segoe UI&quot;;
 </string>
@@ -1674,7 +1674,7 @@ Button */
               </widget>
              </item>
              <item>
-              <widget class="QFrame" name="extraCenter">
+              <widget class="QFrame" name="frame_left_settings_bottom_box">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
@@ -1723,16 +1723,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
                </layout>
               </widget>
              </item>
-             <item>
-              <widget class="QFrame" name="extraBottom">
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
           </item>
@@ -1740,7 +1730,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="contentBox">
+        <widget class="QFrame" name="frame_content_box">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
@@ -1764,7 +1754,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
            <number>0</number>
           </property>
           <item>
-           <widget class="QFrame" name="contentTopBg">
+           <widget class="QFrame" name="frame_content_top_box">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -1800,7 +1790,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
               <number>0</number>
              </property>
              <item>
-              <widget class="QFrame" name="leftBox">
+              <widget class="QFrame" name="frame_title">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                  <horstretch>0</horstretch>
@@ -1830,7 +1820,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QLabel" name="titleRightInfo">
+                 <widget class="QLabel" name="label_title">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -1863,7 +1853,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </widget>
              </item>
              <item alignment="Qt::AlignRight">
-              <widget class="QFrame" name="rightButtons">
+              <widget class="QFrame" name="frame_buttons_top_right">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
@@ -1893,7 +1883,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QPushButton" name="settingsTopBtn">
+                 <widget class="QPushButton" name="btn_top_settings">
                   <property name="minimumSize">
                    <size>
                     <width>28</width>
@@ -1928,7 +1918,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="minimizeAppBtn">
+                 <widget class="QPushButton" name="btn_minimize">
                   <property name="minimumSize">
                    <size>
                     <width>28</width>
@@ -1963,7 +1953,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="maximizeRestoreAppBtn">
+                 <widget class="QPushButton" name="btn_maximize_and_restore">
                   <property name="minimumSize">
                    <size>
                     <width>28</width>
@@ -2007,7 +1997,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="closeAppBtn">
+                 <widget class="QPushButton" name="btn_close">
                   <property name="minimumSize">
                    <size>
                     <width>28</width>
@@ -2048,7 +2038,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
            </widget>
           </item>
           <item>
-           <widget class="QFrame" name="contentBottom">
+           <widget class="QFrame" name="frame_sub_content_box">
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -2072,7 +2062,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
               <number>0</number>
              </property>
              <item>
-              <widget class="QFrame" name="content">
+              <widget class="QFrame" name="frame_pages_content">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
@@ -2096,7 +2086,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QFrame" name="pagesContainer">
+                 <widget class="QFrame" name="frame_pages_container">
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
@@ -2123,7 +2113,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                     <number>10</number>
                    </property>
                    <item>
-                    <widget class="QStackedWidget" name="stackedWidget">
+                    <widget class="QStackedWidget" name="stacked_widget">
                      <property name="styleSheet">
                       <string notr="true">background: transparent;
 </string>
@@ -2956,7 +2946,7 @@ QProgressBar::chunk {
                  </widget>
                 </item>
                 <item>
-                 <widget class="QFrame" name="extraRightBox">
+                 <widget class="QFrame" name="frame_right_settings_box">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -2992,23 +2982,7 @@ QProgressBar::chunk {
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QFrame" name="themeSettingsTopDetail">
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>3</height>
-                      </size>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::NoFrame</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Raised</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QFrame" name="contentSettings">
+                    <widget class="QFrame" name="frame_right_settings_content">
                      <property name="frameShape">
                       <enum>QFrame::NoFrame</enum>
                      </property>
@@ -3032,7 +3006,7 @@ QProgressBar::chunk {
                        <number>0</number>
                       </property>
                       <item alignment="Qt::AlignTop">
-                       <widget class="QFrame" name="topMenus">
+                       <widget class="QFrame" name="frame_right_menu_box">
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
                         </property>
@@ -3176,7 +3150,7 @@ QProgressBar::chunk {
               </widget>
              </item>
              <item>
-              <widget class="QFrame" name="bottomBar">
+              <widget class="QFrame" name="frame_bottom_bar">
                <property name="minimumSize">
                 <size>
                  <width>0</width>
