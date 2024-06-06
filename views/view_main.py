@@ -4,11 +4,12 @@
 # @Name   : view_main.py
 
 from PySide6.QtCore import (QTimer, Qt, QEvent, QPoint)
-from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QMainWindow, QPushButton
+from PySide6.QtGui import QIcon, QColor
+from PySide6.QtWidgets import QMainWindow, QPushButton, QGraphicsDropShadowEffect, QSizeGrip
 
 from views.ui_designs import Ui_MainWindow
 from config import DarkThemeConfig
+from views.widgets import CustomGrip
 
 
 class ViewMain(QMainWindow, Ui_MainWindow):
@@ -21,7 +22,12 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         self.move_position: QPoint = QPoint(0, 0)
         # 记录当前选中的按钮
         self.current_selected_menu_btn: str = 'btn_page_home'
-        #
+        # 设置可调节边框
+        self.left_grip = None
+        self.right_grip = None
+        self.top_grip = None
+        self.bottom_grip = None
+        self.sizegrip = None
         # 初始化界面
         self.init_view()
         self.setup_connections()
@@ -34,6 +40,10 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         self.setAttribute(Qt.WA_TranslucentBackground)
         # 设置默认的菜单栏按钮样式
         self.toggle_menu_btn_style()
+        # 添加阴影
+        self.set_window_shadow()
+        # 添加QSizeGrip
+        self.add_size_grip()
 
     def setup_connections(self):
         # 页面切换事件绑定
@@ -84,11 +94,21 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         """最大化窗口和还原"""
         if not self.is_maximum_size:
             self.showMaximized()
+            self.frame_size_grip.hide()
+            self.left_grip.hide()
+            self.right_grip.hide()
+            self.top_grip.hide()
+            self.bottom_grip.hide()
             self.app_margins.setContentsMargins(0, 0, 0, 0)
             self.btn_maximize_and_restore.setToolTip("Restore")
             self.btn_maximize_and_restore.setIcon(QIcon(u":/icons/icons/icon_restore.png"))
         else:
             self.showNormal()
+            self.frame_size_grip.show()
+            self.left_grip.show()
+            self.right_grip.show()
+            self.top_grip.show()
+            self.bottom_grip.show()
             self.app_margins.setContentsMargins(10, 10, 10, 10)
             self.btn_maximize_and_restore.setToolTip("Maximize")
             self.btn_maximize_and_restore.setIcon(QIcon(u":/icons/icons/icon_maximize.png"))
@@ -98,6 +118,26 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         """双击控件事件"""
         if event.type() == QEvent.MouseButtonDblClick:
             QTimer.singleShot(250, self.maximize_restore_window)
+
+    def set_window_shadow(self):
+        """设置窗口阴影"""
+        shadow_effect = QGraphicsDropShadowEffect(self.bgApp)
+        shadow_effect.setBlurRadius(10)
+        shadow_effect.setXOffset(0)
+        shadow_effect.setYOffset(0)
+        # 表示一个黑色，并且有一定程度的透明度
+        shadow_effect.setColor(QColor(0, 0, 0, 150))
+        self.setGraphicsEffect(shadow_effect)
+
+    def add_size_grip(self):
+        """设置可调节边框"""
+        self.left_grip = CustomGrip(self, Qt.LeftEdge, True)
+        self.right_grip = CustomGrip(self, Qt.RightEdge, True)
+        self.top_grip = CustomGrip(self, Qt.TopEdge, True)
+        self.bottom_grip = CustomGrip(self, Qt.BottomEdge, True)
+        # 为右下角的抓手frame添加一个样式
+        self.sizegrip = QSizeGrip(self.frame_size_grip)
+        self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
 
     def move_window(self, event=None):
         """窗口拖动,当鼠标左键按下并移动时，计算新的窗口位置并移动窗口。"""
@@ -112,3 +152,10 @@ class ViewMain(QMainWindow, Ui_MainWindow):
             # 记录点击位置相对于窗口左上角的偏移
             self.move_position = event.globalPosition().toPoint() - self.pos()
             event.accept()
+
+    def resizeEvent(self, event):
+        """处理窗口大小调整事件"""
+        self.left_grip.setGeometry(0, 10, 10, self.height())
+        self.right_grip.setGeometry(self.width() - 10, 10, 10, self.height())
+        self.top_grip.setGeometry(0, 0, self.width(), 10)
+        self.bottom_grip.setGeometry(0, self.height() - 10, self.width(), 10)
