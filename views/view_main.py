@@ -5,9 +5,10 @@
 
 from PySide6.QtCore import (QTimer, Qt, QEvent, QPoint)
 from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMainWindow, QPushButton
 
 from views.ui_designs import Ui_MainWindow
+from config import DarkThemeConfig
 
 
 class ViewMain(QMainWindow, Ui_MainWindow):
@@ -18,6 +19,8 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         self.is_maximum_size = bool(0)
         # 初始化移动位置，初始值为 (0, 0)
         self.move_position: QPoint = QPoint(0, 0)
+        # 记录当前选中的按钮
+        self.current_selected_menu_btn: str = 'btn_page_home'
         #
         # 初始化界面
         self.init_view()
@@ -29,6 +32,8 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         self.setWindowFlag(Qt.FramelessWindowHint)
         # 半透明
         self.setAttribute(Qt.WA_TranslucentBackground)
+        # 设置默认的菜单栏按钮样式
+        self.toggle_menu_btn_style()
 
     def setup_connections(self):
         # 页面切换事件绑定
@@ -55,9 +60,25 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         if page := page_map.get(selected_btn_name):
             if page == self.stacked_widget.currentWidget():
                 return
+            # 设置菜单栏的样式
+            self.current_selected_menu_btn = selected_btn_name  # 记录当前选中的按钮
+            self.toggle_menu_btn_style()
             # 切换页面
             QTimer.singleShot(150, lambda: self.stacked_widget.setCurrentWidget(page))
         print(f'Button "{selected_btn_name}" pressed!')
+
+    def toggle_menu_btn_style(self):
+        """切换菜单栏按钮样式"""
+        # 循环取 frame_menu 下面所有的按钮控件
+        for widget in self.frame_menu.findChildren(QPushButton):
+            widget: QPushButton
+            # 检查按钮是否是当前选中的按钮
+            if widget.objectName() == self.current_selected_menu_btn:
+                # 为选中的按钮添加选中样式，直接将样式追加到控件上
+                widget.setStyleSheet(widget.styleSheet() + DarkThemeConfig.MENU_SELECTED_STYLESHEET)
+            else:
+                # 移除其他按钮的选中样式，替换原有的选中样式
+                widget.setStyleSheet(widget.styleSheet().replace(DarkThemeConfig.MENU_SELECTED_STYLESHEET, ''))
 
     def maximize_restore_window(self):
         """最大化窗口和还原"""
