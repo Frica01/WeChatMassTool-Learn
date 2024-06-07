@@ -5,3 +5,4 @@
 # Description:
 
 from config.style_config import DarkThemeConfig
+from config.widget_config import WidgetConfig
