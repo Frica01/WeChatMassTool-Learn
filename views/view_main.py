@@ -4,8 +4,8 @@
 # @Name   : view_main.py
 
 from PySide6.QtCore import (QTimer, Qt, QEvent, QPoint, QParallelAnimationGroup, QPropertyAnimation)
-from PySide6.QtGui import QIcon, QColor
-from PySide6.QtWidgets import QMainWindow, QPushButton, QGraphicsDropShadowEffect, QSizeGrip, QWidget
+from PySide6.QtGui import (QIcon, QColor)
+from PySide6.QtWidgets import (QMainWindow, QPushButton, QGraphicsDropShadowEffect, QSizeGrip, QWidget)
 
 from config import (DarkThemeConfig, WidgetConfig)
 from views.ui_components import create_width_animation
@@ -62,9 +62,9 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         self.label_title.mouseMoveEvent = self.move_window
         self.label_title.mouseDoubleClickEvent = self.double_click_maximize_restore
         # 动画事件绑定(分别为 菜单栏、左侧设置面板、右上设置面板)
-        self.btn_menu_toggle.clicked.connect(lambda: self.toggle_width_animation(self.frame_menu_left_box))
-        self.btn_left_settings.clicked.connect(lambda: self.toggle_width_animation(self.frame_left_settings_box))
-        self.btn_top_settings.clicked.connect(lambda: self.toggle_width_animation(self.frame_right_settings_box))
+        self.btn_menu_toggle.clicked.connect(self.toggle_width_animation)
+        self.btn_left_settings.clicked.connect(self.toggle_width_animation)
+        self.btn_top_settings.clicked.connect(self.toggle_width_animation)
 
     def switch_page(self):
         """切换页面"""
@@ -98,27 +98,48 @@ class ViewMain(QMainWindow, Ui_MainWindow):
                 # 移除其他按钮的选中样式，替换原有的选中样式
                 widget.setStyleSheet(widget.styleSheet().replace(DarkThemeConfig.MENU_SELECTED_STYLESHEET, ''))
 
-    def toggle_width_animation(self, widget):
-        """切换面板宽度动画
-
-        Args:
-            widget (QWidget): 要动画化的QWidget对象。
-        """
-        # 映射面板对应的宽度配置
-        widgets_width_map = {
-            'frame_menu_left_box': WidgetConfig.MENU_WIDTHS,
-            'frame_left_settings_box': WidgetConfig.CONFIG_WIDTHS,
-            'frame_right_settings_box': WidgetConfig.CONFIG_WIDTHS
+    def toggle_width_animation(self):
+        """切换面板宽度动画"""
+        # 按钮与面板对应的宽度配置
+        btn_widget_width_map = {
+            'btn_menu_toggle': WidgetConfig.MENU_WIDTHS,
+            'btn_left_settings': WidgetConfig.CONFIG_WIDTHS,
+            'btn_top_settings': WidgetConfig.CONFIG_WIDTHS
         }
-        width_map = widgets_width_map.get(widget.objectName())
+
+        # 按钮与控件
+        btn_widget_map = {
+            'btn_menu_toggle': self.frame_menu_left_box,
+            'btn_left_settings': self.frame_left_settings_box,
+            'btn_top_settings': self.frame_right_settings_box
+        }
+
+        # 按钮与颜色
+        btn_color_map = {
+            'btn_left_settings': DarkThemeConfig.BTN_LEFT_SETTING_COLOR,
+            'btn_top_settings': DarkThemeConfig.BTN_RIGHT_SETTING_COLOR
+        }
+
+        # 当前点击按钮
+        widget: QPushButton = self.sender()
+        object_name: str = widget.objectName()
+        width_map = btn_widget_width_map.get(object_name)
+        box_widget: QWidget = btn_widget_map.get(object_name)
 
         # 获取面板应该设置的宽度
         max_width = width_map.get('MAX')
         default_width = width_map.get('DEFAULT')
-        target_width = max_width if widget.width() == default_width else default_width
+        target_width = max_width if box_widget.width() == default_width else default_width
+
+        # 设置按钮颜色
+        if color := btn_color_map.get(object_name):
+            if target_width:
+                widget.setStyleSheet(widget.styleSheet() + color)
+            else:
+                widget.setStyleSheet(widget.styleSheet().replace(color, ''))
 
         # 创建并启动动画
-        self.animation = create_width_animation(widget, target_width)
+        self.animation = create_width_animation(box_widget, target_width)
         self.animation.start()
 
     def maximize_restore_window(self):
