@@ -5,10 +5,10 @@
 
 from PySide6.QtCore import (QTimer, Qt, QEvent, QPoint, QParallelAnimationGroup, QPropertyAnimation)
 from PySide6.QtGui import (QIcon, QColor)
-from PySide6.QtWidgets import (QMainWindow, QPushButton, QGraphicsDropShadowEffect, QSizeGrip, QWidget)
+from PySide6.QtWidgets import (QMainWindow, QPushButton, QGraphicsDropShadowEffect, QSizeGrip, QWidget, QFrame)
 
 from config import (DarkThemeConfig, WidgetConfig)
-from views.ui_components import create_width_animation
+from views.ui_components import (create_width_animation, create_animation_group)
 from views.ui_designs import Ui_MainWindow
 from views.widgets import CustomGrip
 
@@ -63,8 +63,8 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         self.label_title.mouseDoubleClickEvent = self.double_click_maximize_restore
         # 动画事件绑定(分别为 菜单栏、左侧设置面板、右上设置面板)
         self.btn_menu_toggle.clicked.connect(self.toggle_width_animation)
-        self.btn_left_settings.clicked.connect(self.toggle_width_animation)
-        self.btn_top_settings.clicked.connect(self.toggle_width_animation)
+        self.btn_left_settings.clicked.connect(self.toggle_setting_animation_group)
+        self.btn_top_settings.clicked.connect(self.toggle_setting_animation_group)
 
     def switch_page(self):
         """切换页面"""
@@ -101,24 +101,10 @@ class ViewMain(QMainWindow, Ui_MainWindow):
     def toggle_width_animation(self):
         """切换面板宽度动画"""
         # 按钮与面板对应的宽度配置
-        btn_widget_width_map = {
-            'btn_menu_toggle': WidgetConfig.MENU_WIDTHS,
-            'btn_left_settings': WidgetConfig.CONFIG_WIDTHS,
-            'btn_top_settings': WidgetConfig.CONFIG_WIDTHS
-        }
+        btn_widget_width_map = {'btn_menu_toggle': WidgetConfig.MENU_WIDTHS}
 
         # 按钮与控件
-        btn_widget_map = {
-            'btn_menu_toggle': self.frame_menu_left_box,
-            'btn_left_settings': self.frame_left_settings_box,
-            'btn_top_settings': self.frame_right_settings_box
-        }
-
-        # 按钮与颜色
-        btn_color_map = {
-            'btn_left_settings': DarkThemeConfig.BTN_LEFT_SETTING_COLOR,
-            'btn_top_settings': DarkThemeConfig.BTN_RIGHT_SETTING_COLOR
-        }
+        btn_widget_map = {'btn_menu_toggle': self.frame_menu_left_box}
 
         # 当前点击按钮
         widget: QPushButton = self.sender()
@@ -131,16 +117,45 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         default_width = width_map.get('DEFAULT')
         target_width = max_width if box_widget.width() == default_width else default_width
 
-        # 设置按钮颜色
-        if color := btn_color_map.get(object_name):
-            if target_width:
-                widget.setStyleSheet(widget.styleSheet() + color)
-            else:
-                widget.setStyleSheet(widget.styleSheet().replace(color, ''))
-
         # 创建并启动动画
         self.animation = create_width_animation(box_widget, target_width)
         self.animation.start()
+
+    def toggle_setting_animation_group(self):
+        """切换面板宽度动画组"""
+        btn_widget = self.sender()
+        object_name = btn_widget.objectName()
+        max_width = WidgetConfig.CONFIG_WIDTHS.get('MAX')
+        default_width = WidgetConfig.CONFIG_WIDTHS.get('DEFAULT')
+
+        # 获取当前面板的宽度
+        left_width = self.frame_left_settings_box.width()
+        right_width = self.frame_right_settings_box.width()
+
+        # 获取需要移动的目标距离
+        left_width = max_width if (left_width == default_width and object_name == 'btn_left_settings') else default_width
+        right_width = max_width if (right_width == default_width and object_name == 'btn_top_settings') else default_width
+
+        # 对左右面板执行展开或收起的动画
+        left_box = create_width_animation(self.frame_left_settings_box, left_width, 1200)
+        right_box = create_width_animation(self.frame_right_settings_box, right_width, 1200)
+
+        # 设置按钮颜色
+        left_setting_color = DarkThemeConfig.BTN_LEFT_SETTING_COLOR
+        right_setting_color = DarkThemeConfig.BTN_RIGHT_SETTING_COLOR
+        if left_width and not right_width:
+            self.btn_left_settings.setStyleSheet(self.btn_left_settings.styleSheet() + left_setting_color)
+            self.btn_top_settings.setStyleSheet(self.btn_top_settings.styleSheet().replace(right_setting_color, ''))
+        elif not left_width and right_width:
+            self.btn_left_settings.setStyleSheet(self.btn_left_settings.styleSheet().replace(left_setting_color, ''))
+            self.btn_top_settings.setStyleSheet(self.btn_top_settings.styleSheet() + right_setting_color)
+        else:
+            self.btn_left_settings.setStyleSheet(self.btn_left_settings.styleSheet().replace(left_setting_color, ''))
+            self.btn_top_settings.setStyleSheet(self.btn_top_settings.styleSheet().replace(right_setting_color, ''))
+
+        # 创建并启动动画组
+        self.animation_group = create_animation_group([left_box, right_box])
+        self.animation_group.start()
 
     def maximize_restore_window(self):
         """最大化窗口和还原"""
