@@ -5,7 +5,8 @@
 
 from PySide6.QtCore import (QTimer, Qt, QEvent, QPoint, QParallelAnimationGroup, QPropertyAnimation)
 from PySide6.QtGui import (QIcon, QColor)
-from PySide6.QtWidgets import (QMainWindow, QPushButton, QGraphicsDropShadowEffect, QSizeGrip, QWidget, QFrame)
+from PySide6.QtWidgets import (QMainWindow, QPushButton, QGraphicsDropShadowEffect, QSizeGrip, QWidget, QFrame,
+                               QFileDialog)
 
 from config import (DarkThemeConfig, WidgetConfig)
 from views.ui_components import (create_width_animation, create_animation_group)
@@ -65,6 +66,10 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         self.btn_menu_toggle.clicked.connect(self.toggle_width_animation)
         self.btn_left_settings.clicked.connect(self.toggle_setting_animation_group)
         self.btn_top_settings.clicked.connect(self.toggle_setting_animation_group)
+        # 添加文件事件、拖拽文件事件绑定（设置文件框窗口接受拖拽事件）
+        self.btn_add_file.clicked.connect(self.add_send_file_list)
+        self.file_list_widget.setAcceptDrops(True)
+        self.file_list_widget.dragEnterEvent = self.drag_enter_event
 
     def switch_page(self):
         """切换页面"""
@@ -133,8 +138,10 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         right_width = self.frame_right_settings_box.width()
 
         # 获取需要移动的目标距离
-        left_width = max_width if (left_width == default_width and object_name == 'btn_left_settings') else default_width
-        right_width = max_width if (right_width == default_width and object_name == 'btn_top_settings') else default_width
+        left_width = max_width if (
+                left_width == default_width and object_name == 'btn_left_settings') else default_width
+        right_width = max_width if (
+                right_width == default_width and object_name == 'btn_top_settings') else default_width
 
         # 对左右面板执行展开或收起的动画
         left_box = create_width_animation(self.frame_left_settings_box, left_width, 1200)
@@ -185,6 +192,25 @@ class ViewMain(QMainWindow, Ui_MainWindow):
         """双击控件事件"""
         if event.type() == QEvent.MouseButtonDblClick:
             QTimer.singleShot(250, self.maximize_restore_window)
+
+    def drag_enter_event(self, event: QEvent):
+        """处理拖拽进入事件"""
+        if event.mimeData().hasUrls():
+            self.file_list_widget.addItems({url.toLocalFile() for url in event.mimeData().urls()})
+            # 鼠标放开函数事件
+            event.accept()
+        else:
+            event.ignore()
+
+    def add_send_file_list(self):
+        """导入发送文件清单"""
+        # 弹出文件选择对话框让用户选择文件
+        if new_files := set(QFileDialog.getOpenFileNames(self, '选择文件', "All Files (*);;*")[0]):
+            curr_files = {self.file_list_widget.item(row).text() for row in range(self.file_list_widget.count())}
+
+            # 计算尚未添加到列表的新文件
+            if files_to_add := (new_files - curr_files):
+                self.file_list_widget.addItems(files_to_add)
 
     def set_window_shadow(self):
         """设置窗口阴影"""
