@@ -18,10 +18,9 @@ class ControllerMain:
 
     def sample_task(self, cnt):
         """简单打印任务"""
-        print(cnt)
+        print(f"任务 {cnt} 执行中")
 
     def execute_on_click(self):
         """按钮点击事件处理函数"""
         for i in range(10):
             self.model.execute_tasks(self.sample_task, i)
-
