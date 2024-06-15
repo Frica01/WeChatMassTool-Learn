@@ -3,10 +3,12 @@
 # @Time   : 2024/6/2 下午11:25
 # @Name   : view_main.py
 
+from itertools import chain
+
 from PySide6.QtCore import (QTimer, Qt, QEvent, QPoint, QParallelAnimationGroup, QPropertyAnimation)
 from PySide6.QtGui import (QIcon, QColor)
 from PySide6.QtWidgets import (QMainWindow, QPushButton, QGraphicsDropShadowEffect, QSizeGrip, QWidget, QFrame,
-                               QFileDialog)
+                               QFileDialog, QTextEdit, QRadioButton, QListWidget)
 
 from config import (DarkThemeConfig, WidgetConfig)
 from views.ui_components import (create_width_animation, create_animation_group)
@@ -211,6 +213,41 @@ class ViewMain(QMainWindow, Ui_MainWindow):
             # 计算尚未添加到列表的新文件
             if files_to_add := (new_files - curr_files):
                 self.file_list_widget.addItems(files_to_add)
+
+    def get_input_info(self):
+        """
+        获取控件中的信息
+
+        Returns:
+            dict: 包含控件中信息的字典
+        """
+        return {
+            'single_text': self.single_line_msg_text_edit.toPlainText(),
+            'multi_text': self.multi_line_msg_text_edit.toPlainText(),
+            'file_paths': [self.file_list_widget.item(row).text() for row in range(self.file_list_widget.count())],
+            'names': self.name_text_edit.toPlainText(),
+            'add_remark_name': True if self.rb_add_remark.isChecked() else False,
+            'at_everyone': True if self.rb_at_everyone.isChecked() else False
+        }
+
+    def clear_widgets(self):
+        """清空控件输入信息"""
+        btn_map = {
+            'btn_clear_msg': [self.multi_line_msg_text_edit, self.single_line_msg_text_edit],
+            'btn_clear_file': [self.file_list_widget],
+            'btn_clear_name': [self.name_text_edit, self.rb_at_everyone, self.rb_add_remark],
+            'btn_clear_all': []
+        }
+        btn_map['btn_clear_all'].extend(list(chain(*btn_map.values())))
+
+        # 获取当前点击按钮
+        if widgets := btn_map.get(self.sender().objectName()):
+            # 循环读取对应的控件内容，并根据不同控件类型清空控件内容
+            for widget in widgets:
+                if isinstance(widget, (QTextEdit, QListWidget,)):
+                    widget.clear()
+                elif isinstance(widget, QRadioButton):
+                    widget.setChecked(False)
 
     def set_window_shadow(self):
         """设置窗口阴影"""
