@@ -19,3 +19,14 @@ class TaskRunnable(QRunnable):
     def run(self):
         """执行任务"""
         self.func(*self.args, **self.kwargs)
+
+
+class WechatTaskRunnable(TaskRunnable):
+    def __init__(self, func, *args, **kwargs):
+        super().__init__(func, *args, **kwargs)
+
+    def run(self):
+        """重写run方法，处理消息发送任务"""
+        message_info: dict = self.kwargs.get('message_info')
+        for idx, name in enumerate(message_info.pop('names', list())):
+            self.func(name, **message_info)
